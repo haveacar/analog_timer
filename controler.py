@@ -1,17 +1,17 @@
+import os
 from tkinter import *
 from tkinter import messagebox
-
+from PIL import ImageTk, Image
 import math
 
-# Colors Constants
-
-
+# Colors Constants and fonts
 RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
-
 FONT_NAME = "Courier"
 
+# dir path
+TIMER_PATH = os.path.join(os.path.dirname(__file__), 'images.png')
 
 class Analog_timer(Tk):
     """ Class analog timer"""
@@ -52,11 +52,14 @@ class Analog_timer(Tk):
             extent=359.9,
             outline='',
             fill="#ff0000",
-
         )
 
         # move canvas object behind
         self.canvas.tag_lower(self.arc_object)
+
+        # Load the image
+        tomato_img = PhotoImage(file=TIMER_PATH)
+        self.canvas.create_image(150, 150, image=tomato_img)
 
         self.start()
 
@@ -95,6 +98,8 @@ class Analog_timer(Tk):
 
         # create oval
         self.canvas.create_oval(self.oval_coords, outline='black', width=11)
+
+
 
     def arc_move(self, count: int) -> None:
         """
@@ -146,6 +151,3 @@ class Analog_timer(Tk):
             self.timer = self.after(1000, self.count_down, count - 1)
         else:
              messagebox.showinfo("Time !")
-
-
-
