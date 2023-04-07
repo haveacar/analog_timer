@@ -57,9 +57,13 @@ class Analog_timer(Tk):
         # move canvas object behind
         self.canvas.tag_lower(self.arc_object)
 
-        # Load the image
-        tomato_img = PhotoImage(file=TIMER_PATH)
-        self.canvas.create_image(150, 150, image=tomato_img)
+        # load voice image
+        with Image.open(TIMER_PATH) as img:
+            bg_image = ImageTk.PhotoImage(img.resize(size=(442, 292)))
+
+        obj_img=self.canvas.create_image(150, 150, image=bg_image)
+        self.canvas.tag_lower(obj_img)
+
 
         self.start()
 
@@ -74,7 +78,7 @@ class Analog_timer(Tk):
         return new_value == "" or new_value.isnumeric()
 
     def start(self) -> None:
-        """Func """
+        """Func start widgets"""
 
         # Labels & Buttons
         self.my_label_checkmark = Label(master=self.bottom_frame, fg=GREEN, bg=YELLOW, font=("Arial", 20))
@@ -98,7 +102,6 @@ class Analog_timer(Tk):
 
         # create oval
         self.canvas.create_oval(self.oval_coords, outline='black', width=11)
-
 
 
     def arc_move(self, count: int) -> None:
@@ -140,14 +143,12 @@ class Analog_timer(Tk):
         Count func sec
         :param count: int sec
         """
-
         count_min = math.floor(count / 60)
         count_sec = count % 60
         if count_sec < 10:
             count_sec = f"0{count_sec}"
-
         self.canvas.itemconfig(self.timer_text, text=f"{count_min}:{count_sec}")
         if count > 0:
             self.timer = self.after(1000, self.count_down, count - 1)
         else:
-             messagebox.showinfo("Time !")
+             messagebox.showinfo("Time!")
