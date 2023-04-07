@@ -59,8 +59,7 @@ class Analog_timer(Tk):
 
         # load voice image
         with Image.open(TIMER_PATH) as img:
-            bg_image = ImageTk.PhotoImage(img.resize(size=(442, 292)))
-
+            bg_image = ImageTk.PhotoImage(img.resize(size=(262, 149)))
         obj_img=self.canvas.create_image(150, 150, image=bg_image)
         self.canvas.tag_lower(obj_img)
 
