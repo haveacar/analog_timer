@@ -148,4 +148,4 @@ class Analog_timer(Tk):
              messagebox.showinfo("Time !")
 
 
-timer = Analog_timer()
+
